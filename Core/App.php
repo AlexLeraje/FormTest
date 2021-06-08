@@ -19,8 +19,9 @@ class App
         new PostProtect;
 
         self::$data = self::databazeConnect();
-        self::$router = new Router();
         self::$user = new User;
+
+        self::$router = new Router();
     }
 
     private static function databazeConnect() :Database
