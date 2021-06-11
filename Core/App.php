@@ -9,9 +9,9 @@ use Core\Classes\PostProtect;
 
 class App
 {
-    private static Database $data;
-    private static Router $router;
-    private static User $user;
+    public static Database $data;
+    public static Router $router;
+    public static User $user;
 
     public function __construct()
     {
@@ -21,12 +21,18 @@ class App
         self::$data = self::databazeConnect();
         self::$user = new User;
 
-        self::$router = new Router();
+        self::runRoute();
     }
 
     private static function databazeConnect() :Database
     {
         return new Database();
+    }
+
+    private static function runRoute()
+    {
+        self::$router = new Router();
+        self::$router->runModule();
     }
 
     /* Парочку нужных настроек */

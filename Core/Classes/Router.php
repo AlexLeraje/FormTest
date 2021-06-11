@@ -2,6 +2,8 @@
 
 namespace Core\Classes;
 
+use Core\App;
+
 class Router
 {
     public string $module = 'Autorize';
@@ -11,7 +13,7 @@ class Router
     public function __construct()
     {
         $this->parseRoute();
-        $this->runModule();
+        ///$this->runModule();
     }
 
     /**
@@ -49,7 +51,7 @@ class Router
     /** Проверка действий и названий параметров. */
     private function checkAction(string $action) :int|false
     {
-        return preg_match("/^[a-z0-9\_]+$/", $action);
+        return preg_match("/^[A-z0-9\_]+$/", $action);
     }
 
     private static function split($url) :array|false
@@ -57,7 +59,7 @@ class Router
         return preg_split('/\//', $url, -1, PREG_SPLIT_NO_EMPTY);
     }
 
-    private function runModule() :void
+    public function runModule() :void
     {
         $path_control = 'Modules/'.$this->module.'/'.$this->module.'Controller.php';
         $path_model = 'Modules/'.$this->module.'/Models/'.$this->action.'Model.php';
