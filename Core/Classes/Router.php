@@ -9,10 +9,12 @@ class Router
     public string $module = 'Autorize';
     public string $action = 'Index';
     private array $params = [];
+    public array $get = [];
 
     public function __construct()
     {
         $this->parseRoute();
+        $this->setParams();
         ///$this->runModule();
     }
 
@@ -88,5 +90,38 @@ class Router
         }
         else
             new Error('Module '.$this->module.'/'.$this->action.' not found!');
+    }
+
+    /**
+     * Разбираем параметры и передаем специализированному классу
+     * например: 2-название параметра, 3- сам параметр и тд
+     */
+    private function setParams() :void
+    {
+        $options = [];
+        $values = [];
+        $out = [];
+
+        foreach($this->params AS $key => $val)
+        {
+            if($key % 2)
+                $values[] =  $val;
+            else
+                $options[] = $val;
+        }
+
+        foreach($options AS $key=> $val)
+        {
+            if(!isset($values[$key]))
+                $values[$key] = '';
+
+            if(self::checkAction($val))
+            {
+                $out[$val] = $values[$key];
+            }
+        }
+
+        //передаем все в класс для работы с параметрами
+        $this->get = $out;
     }
 }

@@ -8,7 +8,7 @@ class Database
 {
     private string $databazeDir = 'Databaze';
     private string $databazeExt = 'xml';
-    private array $databazeList;
+    private array $tablesList;
 
     private array $allowedColsTypes = [
         'int', 'string', 'autoint',
@@ -89,8 +89,8 @@ class Database
 
     private function newQuery(string $table) :void
     {
-        $databazeList = $this->getTablesList($this->databazeDir);
-        if(!isset($databazeList[$table]))
+        $tablesList = $this->getTablesList($this->databazeDir);
+        if(!in_array($table, $tablesList))
             new Error('Table '.$table.' didn\'t exists!');
 
         $this->currentTable = $table;
@@ -99,21 +99,21 @@ class Database
 
     private function getTablesList(string $databazeDir) :array
     {
-        if($this->databazeList)
-            return $this->databazeList;
+        if($this->tablesList)
+            return $this->tablesList;
 
         $filesList = scandir($databazeDir);
-        $this->databazeList = [];
+        $this->tablesList = [];
         foreach($filesList as $value)
         {
             if($value == '.' OR $value == '..')
                 continue;
 
-            $pathInfo =  pathinfo($databazeDir.'/'.$value);
+            $pathInfo = pathinfo($databazeDir.'/'.$value);
             if($pathInfo['extension'] == $this->databazeExt AND $pathInfo['filename'])
-                $outList[$pathInfo['filename']] = $pathInfo['filename'].'.'.$pathInfo['extension'];
+                $this->tablesList[] = $pathInfo['filename'];
         }
 
-        return $this->databazeList;
+        return $this->tablesList;
     }
 }
