@@ -1,0 +1,27 @@
+@extends('MainPage')
+
+@section('MainContent')
+    <form>
+        <h1 class="h3 mb-3 fw-normal">Вход</h1>
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="Логин">
+            <label for="floatingInput">Логин</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Gfhjkm">
+            <label for="floatingPassword">Пароль</label>
+        </div>
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me" checked> Запомнить меня
+            </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary mt-3" type="button">Продолжить</button>
+    </form>
+
+    <script type="text/javascript">
+
+    </script>
+@endsection

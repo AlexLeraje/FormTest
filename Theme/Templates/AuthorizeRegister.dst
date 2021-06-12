@@ -1,0 +1,48 @@
+@extends('MainPage')
+
+@section('MainContent')
+    <form>
+        <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="Login" placeholder="Логин">
+            <label for="Login">Логин</label>
+            <div id="ErrorLogin" class="invalid-feedback"></div>
+            <div class="form-text">Минимум 6 символов, только буквы и цифры</div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="Password" placeholder="Gfhjkm">
+            <label for="Password">Пароль</label>
+            <div id="ErrorPassword" class="invalid-feedback"></div>
+            <div class="form-text">Mинимум 6 символов , обязательно должны содержать цифру, буквы в разных регистрах и спец символ</div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="RepeatPassword" placeholder="Gfhjkm">
+            <label for="RepeatPassword">Повторите пароль</label>
+            <div id="ErrorRepeatPassword" class="invalid-feedback"></div>
+            <div class="form-text"></div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="Mail" placeholder="Логин">
+            <label for="Mail">E-mail</label>
+            <div id="ErrorMail" class="invalid-feedback"></div>
+            <div class="form-text">Указывайте существующий почтовый ящик</div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="UserName" placeholder="Логин">
+            <label for="UserName">Имя</label>
+            <div id="ErrorUserName" class="invalid-feedback"></div>
+            <div class="form-text">Минимум 2 символа, только буквы и цифры</div>
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary mt-3" type="button">Продолжить</button>
+    </form>
+
+    <script type="text/javascript">
+
+    </script>
+@endsection
