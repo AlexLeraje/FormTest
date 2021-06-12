@@ -9,17 +9,18 @@ use Core\Classes\PostProtect;
 
 class App
 {
-    public static Database $data;
-    public static Router $router;
-    public static User $user;
+    public static Database $Data;
+    public static Router $Router;
+    public static User $User;
+    public static PostProtect $FormProtect;
 
     public function __construct()
     {
         self::systemSet();
-        new PostProtect;
+        self::$FormProtect = new PostProtect();
 
-        self::$data = self::databazeConnect();
-        self::$user = new User;
+        self::$Data = self::databazeConnect();
+        self::$User = new User;
 
         self::runRoute();
     }
@@ -31,8 +32,8 @@ class App
 
     private static function runRoute()
     {
-        self::$router = new Router();
-        self::$router->runModule();
+        self::$Router = new Router();
+        self::$Router->runModule();
     }
 
     /* Парочку нужных настроек */

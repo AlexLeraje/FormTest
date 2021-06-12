@@ -5,23 +5,33 @@
         <h1 class="h3 mb-3 fw-normal">Вход</h1>
 
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" placeholder="Логин">
-            <label for="floatingInput">Логин</label>
+            <input type="text" class="form-control" id="Login" placeholder="Логин">
+            <label for="Login">Логин</label>
         </div>
         <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Gfhjkm">
-            <label for="floatingPassword">Пароль</label>
+            <input type="password" class="form-control" id="Password" placeholder="Gfhjkm">
+            <label for="Password">Пароль</label>
         </div>
 
         <div class="checkbox mb-3">
             <label>
-                <input type="checkbox" value="remember-me" checked> Запомнить меня
+                <input id="RememberMe" type="checkbox" value="1" checked> Запомнить меня
             </label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary mt-3" type="button">Продолжить</button>
+        <button id="SubmitData" class="w-100 btn btn-lg btn-primary mt-3" type="button">Продолжить</button>
     </form>
 
     <script type="text/javascript">
-
+        new FormProcessor({
+                form_id: '{!! App::$FormProtect->id() !!}',
+                api_link: '/AutorizeApi/IndexCheckdata',
+                success_location: '/',
+                inputs_id: [
+                    'Login',
+                    'Password',
+                    'RememberMe',
+                ]
+            }
+        ).run();
     </script>
 @endsection

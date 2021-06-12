@@ -7,9 +7,12 @@
 
     <title>Форма входа | Signin Template for Bootstrap</title>
 
+    <script type="text/javascript" src="/Theme/JQuery/jquery-latest.js"></script>
+    <script type="text/javascript" src="/Theme/JQuery/jquery-ui.js"></script>
     <script src="/Theme/Bootstrap/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <link href="/Theme/Bootstrap/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
+    <script type="text/javascript" src="/Theme/JavaScript/Processors.js" ></script>
     <link href="/Theme/Css/Main.css" rel="stylesheet" >
     <meta name="theme-color" content="#7952b3">
 
@@ -42,6 +45,26 @@
         <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
     </main>
 
+</div>
+
+<div class="modal fade" id="JsMainError" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="JsMainErrorLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="JsMainErrorLabel">Ошибка отправки</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-header">
+                <h6 class="modal-title">Обратитесь к администратору сайта с описанием проблемы</h6>
+            </div>
+            <div class="modal-body" id="JsMainErrorBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

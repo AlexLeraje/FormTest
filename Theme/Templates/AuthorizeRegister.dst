@@ -39,10 +39,22 @@
             <div class="form-text">Минимум 2 символа, только буквы и цифры</div>
         </div>
 
-        <button class="w-100 btn btn-lg btn-primary mt-3" type="button">Продолжить</button>
+        <button id="SubmitData" class="w-100 btn btn-lg btn-primary mt-3" type="button">Регистрация</button>
     </form>
 
     <script type="text/javascript">
-
+        new FormProcessor({
+                form_id: '{!! App::$FormProtect->id() !!}',
+                api_link: '/AutorizeApi/RegisterCheckdata',
+                success_location: '/',
+                inputs_id: [
+                    'Login',
+                    'Password',
+                    'RepeatPassword',
+                    'Mail',
+                    'UserName',
+                ]
+            }
+        ).run();
     </script>
 @endsection

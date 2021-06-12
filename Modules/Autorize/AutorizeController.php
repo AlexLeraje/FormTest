@@ -7,7 +7,7 @@ class AutorizeController extends Controller
 {
     public function defaultAction() :void
     {
-        $class = App::$router->action.'Model';
+        $class = App::$Router->action.'Model';
         $this->model = new $class();
 
         $this->display();
@@ -19,6 +19,6 @@ class AutorizeController extends Controller
 
         //Вывод тела
         $view->set_data($this->model->getData());
-        $view->display('Authorize'.App::$router->action);
+        $view->display('Authorize'.App::$Router->action);
     }
 }

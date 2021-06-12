@@ -297,7 +297,11 @@ class Temp
         $buffer_before = ob_get_clean();
         ob_start(NULL, 0, PHP_OUTPUT_HANDLER_STDFLAGS);
 
-        eval(' ?>'.$this->file_eval.'<?');
+        $used_classes = '
+            use Core\App;
+        ';
+
+        eval($used_classes.' ?>'.$this->file_eval.'<?');
 
         $template_executed = ob_get_clean();
 
