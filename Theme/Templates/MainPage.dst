@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Пример на bootstrap 5: Форма входа - макет и дизайн формы.">
 
-    <title>Форма входа | Signin Template for Bootstrap</title>
+    <title>@yield('MainTitle')</title>
 
     <script type="text/javascript" src="/Theme/JQuery/jquery-latest.js"></script>
     <script type="text/javascript" src="/Theme/JQuery/jquery-ui.js"></script>

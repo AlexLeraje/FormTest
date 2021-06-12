@@ -1,5 +1,7 @@
 @extends('MainPage')
 
+@section('MainTitle', 'Авторизация')
+
 @section('MainContent')
     <form>
         <h1 class="h3 mb-3 fw-normal">Вход</h1>

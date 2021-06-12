@@ -1,5 +1,7 @@
 @extends('MainPage')
 
+@section('MainTitle', 'Регистрация')
+
 @section('MainContent')
     <form>
         <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
