@@ -32,8 +32,27 @@
             </a>
 
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                <a class="me-3 py-2 text-dark text-decoration-none" href="/">Вход</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="/Autorize/Register">Регистрация</a>
+                @if(!App::$User->id)
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="/">Вход</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="/Autorize/Register">Регистрация</a>
+                @else
+                    <span class="btn btn-secondary" onclick="exit_site()">Выход</span>
+
+                    <div style="display: none">
+                        <form id="ex_form" method="POST" action="{{ $home }}/Authorize/Exit">
+                            {!! App::$FormProtect->input() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */ !!}
+                            <input type="hidden" name="act" value="do"/>
+                            <input type="submit" value="Выход"/>
+                        </form>
+                    </div>
+
+                    <script type="text/javascript">
+                        function exit_site() {
+                            var exiform = document.getElementById('ex_form');
+                            exiform.submit();
+                        }
+                    </script>
+                @endif
             </nav>
         </div>
     </header>

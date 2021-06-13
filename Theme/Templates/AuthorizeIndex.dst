@@ -3,37 +3,44 @@
 @section('MainTitle', 'Авторизация')
 
 @section('MainContent')
-    <form>
-        <h1 class="h3 mb-3 fw-normal">Вход</h1>
+    @if(App::$User->id)
 
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="Login" placeholder="Логин">
-            <label for="Login">Логин</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="Password" placeholder="Gfhjkm">
-            <label for="Password">Пароль</label>
-        </div>
+        <h3>Приветствую, {!! echo App::$User->login !!}!</h3>
 
-        <div class="checkbox mb-3">
-            <label>
-                <input id="RememberMe" type="checkbox" value="1" checked> Запомнить меня
-            </label>
-        </div>
-        <button id="SubmitData" class="w-100 btn btn-lg btn-primary mt-3" type="button">Продолжить</button>
-    </form>
+    @else
+        <form>
+            <h1 class="h3 mb-3 fw-normal">Вход</h1>
 
-    <script type="text/javascript">
-        new FormProcessor({
-                form_id: '{!! App::$FormProtect->id() !!}',
-                api_link: '/AutorizeApi/IndexCheckdata',
-                success_location: '/',
-                inputs_id: [
-                    'Login',
-                    'Password',
-                    'RememberMe',
-                ]
-            }
-        ).run();
-    </script>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="Login" placeholder="Логин">
+                <label for="Login">Логин</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="Password" placeholder="Gfhjkm">
+                <label for="Password">Пароль</label>
+            </div>
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input id="RememberMe" type="checkbox" value="1" checked> Запомнить меня
+                </label>
+            </div>
+            <button id="SubmitData" class="w-100 btn btn-lg btn-primary mt-3" type="button">Продолжить</button>
+        </form>
+
+        <script type="text/javascript">
+            new FormProcessor({
+                    form_id: '{!! App::$FormProtect->id() !!}',
+                    api_link: '/AutorizeApi/IndexCheckdata',
+                    success_location: '/',
+                    inputs_id: [
+                        'Login',
+                        'Password',
+                        'RememberMe',
+                    ]
+                }
+            ).run();
+        </script>
+    @endif
+
 @endsection

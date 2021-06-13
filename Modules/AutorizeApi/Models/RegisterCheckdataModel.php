@@ -14,10 +14,11 @@ class RegisterCheckdataModel extends AutorizeApiModel
         if(!$this->arrayEmpty($error))
             $out['formerror'] = $error;
         else
-            $this->register_user(
-                $this->POST->var('login'),
-                $this->POST->var('password'),
-                $this->POST->var('mail')
+            $this->registerUser(
+                $this->POST->var('Login'),
+                $this->POST->var('Password'),
+                $this->POST->var('Mail'),
+                $this->POST->var('UserName')
             );
 
         return $out;
@@ -43,8 +44,22 @@ class RegisterCheckdataModel extends AutorizeApiModel
                 ->custom([$this, 'mailExists'])
                 ->out(),
             'UserName' => $this->validate($this->POST->var('UserName'))
-                ->string()->min_width(2)->out(),
+                ->must()->string()->min_width(2)->out(),
         ];
+    }
+
+    private function registerUser($login, $password, $mail, $userName)
+    {
+        App::$Data->insertInto('Users')->set([
+            'login' => $login,
+            'password' => md5(md5(App::$User->salt.$password)),
+            'mail' => $mail,
+            'name' => $userName,
+        ])->execute();
+
+        App::$User->sessionStart($login, $password);
+
+        return TRUE;
     }
 
     public function loginExists(Validate $validate) :Validate
@@ -55,9 +70,27 @@ class RegisterCheckdataModel extends AutorizeApiModel
         return $validate;
     }
 
+    public function comparePasswords(Validate $validate, $password) :Validate
+    {
+        if($validate->string != $password)
+            $validate->errors[] = 'Пароли не совпадают!';
+
+        return $validate;
+    }
+
+    public function mailExists(Validate $validate) :Validate
+    {
+        if(App::$User->mailExists($validate->string))
+            $validate->errors[] = 'Такой почтовый ящик уже есть в системе!';
+
+        return $validate;
+    }
+
     private function checkAccess() :void
     {
         if (App::$User->id)
             $this->apiError('Go Away!!');
     }
+
+
 }

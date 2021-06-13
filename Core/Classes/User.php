@@ -44,14 +44,14 @@ class User
 
     private function getUserData($user_id, $user_pass) :bool
     {
-        $res = App::$Data->prepare_query('
-            SELECT * FROM  `dse_users`
-            WHERE `id` = ?
-            AND `password` = ? LIMIT 1;',
-            $user_id, $user_pass);
-        if($res->num_rows)
+        $req = App::$Data->selectFrom('Users')
+            ->andWhere('id', '=', $user_id)
+            ->andWhere('password', '=', $user_pass)
+            ->execute();
+
+        if($req->numRows())
         {
-            $data = $res->fetch_array();
+            $data = $req->get();
 
             $this->id = $data['id'];
             $this->login = $data['login'];
@@ -68,12 +68,14 @@ class User
 
     private function userDataExist($login, $pass) :int|false
     {
-        $req = App::$Data->prepare_query('
-            SELECT * FROM `dse_users` WHERE `login` = ? AND `password` = ? LIMIT 1',
-            $login, md5(md5($this->salt.$pass)));
-        if($req->num_rows)
+        $req = App::$Data->selectFrom('Users')
+            ->andWhere('login', '=', $login)
+            ->andWhere('password', '=', md5(md5($this->salt.$pass)))
+            ->execute();
+
+        if($req->numRows())
         {
-            $user = $req->fetch_array();
+            $user = $req->get();
             return (int) $user['id'];
         }
         return FALSE;
@@ -112,6 +114,14 @@ class User
     public static function loginExists(string $login) :int|false
     {
         if($count = App::$Data->selectFrom('Users')->andWhere('login', '=', $login)->execute()->numRows())
+            return $count;
+
+        return FALSE;
+    }
+
+    public static function mailExists(string $mail) :int|false
+    {
+        if($count = App::$Data->selectFrom('Users')->andWhere('mail', '=', $mail)->execute()->numRows())
             return $count;
 
         return FALSE;
