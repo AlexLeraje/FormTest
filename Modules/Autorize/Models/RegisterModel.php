@@ -2,7 +2,7 @@
 
 class RegisterModel extends Model
 {
-    public static function getData() :array
+    public function getData() :array
     {
         return [];
     }
