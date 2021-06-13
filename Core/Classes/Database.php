@@ -34,6 +34,11 @@ class Database
         //    'userMail' => 'alex.leraje@gmail.com',
         //])->execute();
 
+        //$out = $this->selectFrom('Users')
+        //    ->andWhere('login', '=', 'web-demon')
+        //    ->andWhere('userMail', '=', 'alex.leraje1@gmail.com')
+        //    ->execute();
+
     }
 
     public function insertInto(string $table) :Database
@@ -149,17 +154,45 @@ class Database
         return FALSE;
     }
 
-    private function selectAction() :array
+    private function selectAction() :DataResult
     {
-        return [];
+        $table = new TableParser($this->databazeDir.'/'.$this->currentTable.'.'.$this->databazeExt);
+        $structure = $table->getStructure();
+        $data = $table->getData();
+
+        $allowedOperands = ['='];
+
+        $outData = $data;
+        foreach($this->whereConditions AS $where)
+        {
+            if(!in_array($where['operand'], $allowedOperands))
+                new Error('Uncknown operand "'.$where['operand'].'"');
+
+            if(!isset($structure[$where['col']]))
+                new Error('Uncknown col "'.$where['col'].'"');
+
+            if($where['action'] == 'and')
+            {
+                $newData = [];
+                foreach($outData AS $value)
+                {
+                    if($where['operand'] == '=')
+                    {
+                        if($value[$where['col']] == $where['value'])
+                            $newData[] = $value;
+                    }
+                }
+                $outData = $newData;
+            }
+        }
+
+        return new DataResult($outData);
     }
 
     private function insertAction() :int
     {
         $table = new TableParser($this->databazeDir.'/'.$this->currentTable.'.'.$this->databazeExt);
-
         $structure = $table->getStructure();
-        $data = $table->getData();
 
         if(!$this->insertData)
             new Error('No insert data!');
@@ -252,7 +285,6 @@ class TableParser
     private string $tablePath;
     private \DOMDocument $xml;
     private \DOMNode|null $rows;
-
 
     public function __construct(string $tablePath)
     {
