@@ -244,7 +244,7 @@ class Validate
             $validate = new Validate($this->string);
             $validate->set_errors($this->errors);
 
-            if($pass_check = $validate->min_width(4)->max_width(15)->out())
+            if($pass_check = $validate->min_width(6)->out())
                 $this->errors[] = $pass_check;
         }
 

@@ -39,7 +39,7 @@
                     <span class="btn btn-secondary" onclick="exit_site()">Выход</span>
 
                     <div style="display: none">
-                        <form id="ex_form" method="POST" action="{{ $home }}/Authorize/Exit">
+                        <form id="ex_form" method="POST" action="{{ $home }}/Autorize/Exit">
                             {!! App::$FormProtect->input() /* ЭТА ФУНКЦИЯ ОБЯЗАТЕЛЬНА ДЛЯ ВСЕХ ФОРМ!!! */ !!}
                             <input type="hidden" name="act" value="do"/>
                             <input type="submit" value="Выход"/>
