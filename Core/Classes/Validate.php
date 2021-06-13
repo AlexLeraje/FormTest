@@ -229,7 +229,7 @@ class Validate
 
             if($login_check = $validate->min_width(6)->out())
                 $this->errors[] = $login_check;
-            elseif(preg_match('/[^\da-z]+/ui', $this->string) AND preg_match('/[^\dа-яА-ЯёЁ]+/ui', $this->string))
+            elseif(preg_match('/[^\da-z]+/ui', $this->string) AND preg_match('/[^\dа-яё]+/ui', $this->string))
                 $this->errors[] = 'Логин может содержать только буквы и цифры!';
         }
 
@@ -246,6 +246,15 @@ class Validate
 
             if($pass_check = $validate->min_width(6)->out())
                 $this->errors[] = $pass_check;
+            elseif (!preg_match('/[0-9]+/', $this->string))
+                $this->errors[] = 'Пароль должен содержать хотя бы одну цифру!';
+            elseif (!preg_match('/[a-zа-яё]+/u', $this->string))
+                $this->errors[] = 'Пароль должен содержать хотя бы одну букву в нижнем регистре!';
+            elseif (!preg_match('/[A-ZА-ЯЁ]+/u', $this->string))
+                $this->errors[] = 'Пароль должен содержать хотя бы одну букву в верхнем регистре!';
+            elseif (!preg_match('/[^0-9a-zа-я]+/ui', $this->string))
+                $this->errors[] = 'Пароль должен содержать хотя бы один спецсимвол!';
+
         }
 
         return $this->copy_validate();

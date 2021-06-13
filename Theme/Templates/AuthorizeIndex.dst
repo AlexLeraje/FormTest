@@ -5,7 +5,7 @@
 @section('MainContent')
     @if(App::$User->id)
 
-        <h3>Приветствую, {!! echo App::$User->login !!}!</h3>
+        <h3>Приветствую, {{ $userName }}!</h3>
 
     @else
         <form>

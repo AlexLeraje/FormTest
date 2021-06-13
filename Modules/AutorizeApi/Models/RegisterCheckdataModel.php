@@ -44,7 +44,9 @@ class RegisterCheckdataModel extends AutorizeApiModel
                 ->custom([$this, 'mailExists'])
                 ->out(),
             'UserName' => $this->validate($this->POST->var('UserName'))
-                ->must()->string()->min_width(2)->out(),
+                ->must()->string()->min_width(2)
+                ->custom([$this, 'userNameCheck'])
+                ->out(),
         ];
     }
 
@@ -86,11 +88,17 @@ class RegisterCheckdataModel extends AutorizeApiModel
         return $validate;
     }
 
+    public function userNameCheck(Validate $validate) :Validate
+    {
+        if($validate->string AND preg_match('/[^\da-zа-яё]+/ui', $validate->string))
+            $validate->errors[] = 'Имя может содержать только буквы и цифры!';
+
+        return $validate;
+    }
+
     private function checkAccess() :void
     {
         if (App::$User->id)
             $this->apiError('Go Away!!');
     }
-
-
 }
