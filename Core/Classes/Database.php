@@ -24,19 +24,20 @@ class Database
         //$this->createTable('Users', [
         //    'id' => 'autoint',
         //    'login' => 'string',
-        ///    'userPassword' => 'string',
-        //    'userMail' => 'string',
-        //
+        //    'password' => 'string',
+        //    'mail' => 'string',
+        //    'name' => 'string',
         //]);
 
         //$this->insertInto('Users')->set([
         //    'login' => 'web-demon',
-        //    'userMail' => 'alex.leraje@gmail.com',
+        //    'mail' => 'alex.leraje@gmail.com',
         //])->execute();
+
+
 
         //$out = $this->selectFrom('Users')
         //    ->andWhere('login', '=', 'web-demon')
-        //    ->andWhere('userMail', '=', 'alex.leraje1@gmail.com')
         //    ->execute();
 
     }
@@ -350,6 +351,11 @@ class TableParser
             {
                 $cell = $item->item($a);
                 $out_items[$cell->nodeName] = $cell->nodeValue;
+                if($this->structure[$cell->nodeName]['type'] == 'autoint')
+                {
+                    if($cell->nodeValue >= $this->structure[$cell->nodeName]['lastId'])
+                        $this->structure[$cell->nodeName]['lastId'] = $cell->nodeValue;
+                }
             }
             $outRows[] = $out_items;
         }
