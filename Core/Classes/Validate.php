@@ -224,13 +224,13 @@ class Validate
     {
         if($this->string)
         {
-            $validate = new validate($this->string);
+            $validate = new Validate($this->string);
             $validate->set_errors($this->errors);
 
-            if($login_check = $validate->min_width(2)->max_width(15)->out())
+            if($login_check = $validate->min_width(6)->out())
                 $this->errors[] = $login_check;
-            elseif(preg_match('/[^\da-z\-\@\!\_]+/ui', $this->string) AND preg_match('/[^\dа-яА-ЯёЁ\-\@\!\_]+/ui', $this->string))
-                $this->errors[] = 'Логин может содержать только буквы, цифры, символы: -@!_';
+            elseif(preg_match('/[^\da-z]+/ui', $this->string) AND preg_match('/[^\dа-яА-ЯёЁ]+/ui', $this->string))
+                $this->errors[] = 'Логин может содержать только буквы и цифры!';
         }
 
         return $this->copy_validate();
@@ -241,7 +241,7 @@ class Validate
     {
         if($this->string)
         {
-            $validate = new validate($this->string);
+            $validate = new Validate($this->string);
             $validate->set_errors($this->errors);
 
             if($pass_check = $validate->min_width(4)->max_width(15)->out())
